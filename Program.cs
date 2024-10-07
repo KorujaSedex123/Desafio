@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace PasswordGame
 {
@@ -6,15 +7,16 @@ namespace PasswordGame
     {
         static void Main(string[] args)
         {
-            string encodedPassword = "RW5jYXBzdWxhbWVudG8yMDI0IQ=="; // "Encapsulamento2024!" codificado em Base64
-            string correctPassword = DecodeBase64(encodedPassword);
+            string correctPassword = "Encapsulamento2024!";
             string userInput;
             int attempts = 0;
             int maxAttempts = 5;
 
             Console.Clear();
             PrintBorder();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             PrintCentered("Bem-vindo ao jogo de adivinhação de senha!");
+            Console.ResetColor();
             PrintBorder();
             Console.WriteLine();
             Console.WriteLine($"Você tem {maxAttempts} tentativas para adivinhar a senha correta.");
@@ -58,12 +60,6 @@ namespace PasswordGame
             Console.ReadLine();
         }
 
-        static string DecodeBase64(string encodedData)
-        {
-            byte[] data = Convert.FromBase64String(encodedData);
-            return System.Text.Encoding.UTF8.GetString(data);
-        }
-
         static void PrintBorder()
         {
             int width = Console.WindowWidth;
@@ -83,7 +79,7 @@ namespace PasswordGame
             foreach (char c in text)
             {
                 Console.Write(c);
-                System.Threading.Thread.Sleep(100); // Pausa de 100 milissegundos entre cada caractere
+                Thread.Sleep(100); // Pausa de 100 milissegundos entre cada caractere
             }
             Console.WriteLine();
         }
