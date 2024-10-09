@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace PasswordGame
 {
@@ -7,46 +6,75 @@ namespace PasswordGame
     {
         static void Main(string[] args)
         {
-            string correctPassword = "Encapsulamento2024!";
-            string userInput;
-            int attempts = 0;
-            int maxAttempts = 5;
+            string correctPassword = "programação orientada a objetos";
+            string[] phrases = {
+                "Encapsulamento é o conceito de esconder os detalhes internos de um _____.",
+                "Herança permite que uma classe herde atributos e métodos de outra _____.",
+                "Polimorfismo é a capacidade de um objeto assumir várias _____.",
+                "Uma classe é um modelo ou blueprint a partir do qual _____ são criados.",
+                "Um objeto é uma instância de uma _____."
+            };
+            string[] answers = {
+                "objeto",
+                "classe",
+                "formas",
+                "objetos",
+                "classe"
+            };
+            int maxAttempts = 3;
+            bool allCorrect = true;
 
             Console.Clear();
             PrintBorder();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            PrintCentered("Bem-vindo ao jogo de adivinhação de senha!");
+            PrintCentered("Bem-vindo ao jogo de completar frases sobre POO!");
             Console.ResetColor();
             PrintBorder();
             Console.WriteLine();
-            Console.WriteLine($"Você tem {maxAttempts} tentativas para adivinhar a senha correta.");
+            Console.WriteLine("Complete corretamente todas as frases para liberar a senha.");
 
-            while (attempts < maxAttempts)
+            for (int i = 0; i < phrases.Length; i++)
             {
-                Console.Write("Digite a senha: ");
-                userInput = Console.ReadLine();
-                attempts++;
+                int attempts = 0;
+                bool correct = false;
 
-                if (userInput == correctPassword)
+                while (attempts < maxAttempts && !correct)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Parabéns! Você adivinhou a senha correta.");
+                    Console.WriteLine($"Frase {i + 1}: {phrases[i]}");
+                    string userInput = Console.ReadLine();
+                    attempts++;
+
+                    if (userInput.Equals(answers[i], StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Resposta correta!");
+                        Console.ResetColor();
+                        correct = true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Resposta incorreta. Tente novamente.");
+                        Console.ResetColor();
+                        Console.WriteLine($"Tentativas restantes: {maxAttempts - attempts}");
+                    }
+                    Console.WriteLine();
+                }
+
+                if (!correct)
+                {
+                    allCorrect = false;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Você não conseguiu completar todas as frases corretamente.");
                     Console.ResetColor();
                     break;
                 }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Senha incorreta. Tente novamente.");
-                    Console.ResetColor();
-                    Console.WriteLine($"Tentativas restantes: {maxAttempts - attempts}");
-                }
             }
 
-            if (attempts == maxAttempts)
+            if (allCorrect)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Você excedeu o número de tentativas. Jogo encerrado.");
+                Console.WriteLine($"Parabéns! Você completou todas as frases corretamente. A senha é: {correctPassword}");
                 Console.ResetColor();
             }
 
@@ -79,7 +107,7 @@ namespace PasswordGame
             foreach (char c in text)
             {
                 Console.Write(c);
-                Thread.Sleep(100); // Pausa de 100 milissegundos entre cada caractere
+                System.Threading.Thread.Sleep(100); // Pausa de 100 milissegundos entre cada caractere
             }
             Console.WriteLine();
         }
