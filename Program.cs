@@ -6,7 +6,7 @@ namespace PasswordGame
     {
         static void Main(string[] args)
         {
-            string correctPassword = "programação orientada a objetos";
+            string correctPassword = "programacao_orientada_objetos";
             string[] phrases = {
                 "Encapsulamento é o conceito de esconder os detalhes internos de um _____.",
                 "Herança permite que uma classe herde atributos e métodos de outra _____.",
